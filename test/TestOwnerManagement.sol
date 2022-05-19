@@ -26,7 +26,8 @@ contract TestOwnerManagement {
         OwnerManagement ownerContract = new OwnerManagement();
         ThrowProxy throwProxy = new ThrowProxy(address(ownerContract));
 
-        OwnerManagement(address(throwProxy)).bigRedButton();
+        ownerContract.bigRedButton();
+        OwnerManagement(address(throwProxy)).getOwners();
         bool doesNotThrow = throwProxy.execute();
 
         Assert.equal(doesNotThrow, false, "Should throw an error if we call contract after destruction");
