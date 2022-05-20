@@ -1,9 +1,10 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity >=0.4.22 <0.9.0;
+pragma solidity ^0.8.0;
+
 
 contract OwnerManagement {
     address[] private _owners;
-    address payable private creator;
+    address payable private _creator;
 
     //Owner Events
 
@@ -23,7 +24,7 @@ contract OwnerManagement {
     }
 
     modifier onlyCreator(address _validate) {
-        require(_validate == creator);
+        require(_validate == _creator);
         _;
     }
 
@@ -74,7 +75,7 @@ contract OwnerManagement {
     }
 
     function removeOwner(address _ownerToRemove) public onlyOwner(msg.sender) {
-        require(_ownerToRemove != creator);
+        require(_ownerToRemove != _creator);
         int index = getOwnerIndex(_ownerToRemove);
         require(index >= 0);
 
@@ -87,7 +88,7 @@ contract OwnerManagement {
     }
 
     function bigRedButton() public onlyCreator(msg.sender) {
-        selfdestruct(creator);
+        selfdestruct(_creator);
     }
 
     function getContractAddress() public view returns(address) {
