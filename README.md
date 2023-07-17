@@ -1,2 +1,2 @@
-# solidity-rocker-paper-scisor
+# test contract
 title says it all
